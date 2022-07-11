@@ -1,0 +1,18 @@
+{
+  "name": "sleeve-color-extractor",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "stardew default sleeve color extractor",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "stardew valley"
+  ],
+  "author": "Lybell",
+  "license": "MIT",
+  "dependencies": {
+    "fast-png": "^6.1.0"
+  }
+}
