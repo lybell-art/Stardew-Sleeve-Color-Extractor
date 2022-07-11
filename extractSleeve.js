@@ -29,18 +29,27 @@ function extractSleeveColors(colorArray, width, height)
 
 		let [,,,a] = extractPixel(colorArray, dyePixelIdx);
 		if(a > 0) {
-			return colorArrayToHex( extractPixel(colorArray, dyePixelIdx) );
+			return {
+				color:colorArrayToHex( extractPixel(colorArray, dyePixelIdx) ),
+				dyeable:1
+			};
 		}
-		return colorArrayToHex( extractPixel(colorArray, pixelIdx) );
+		return {
+			color:colorArrayToHex( extractPixel(colorArray, pixelIdx) ),
+			dyeable:0
+		};
 	}
 
 	const result = [];
 	let shirtIdx = 0;
 	while(getPixelIndex(shirtIdx) * 4 < colorArray.length) {
+		let {color:light, dyeable:l} = extractSleeveColor(shirtIdx, 2*width);
+		let {color:mid, dyeable:m} = extractSleeveColor(shirtIdx, 3*width);
+		let {color:dark, dyeable:d} = extractSleeveColor(shirtIdx, 4*width);
+
 		result[shirtIdx] = {
-			light : extractSleeveColor(shirtIdx, 2*width),
-			mid : extractSleeveColor(shirtIdx, 3*width),
-			dark : extractSleeveColor(shirtIdx, 4*width)
+			light, mid, dark,
+			dyeable:( (l<<2) | (m<<1) | (d<<0) )
 		};
 		shirtIdx++;
 	}
